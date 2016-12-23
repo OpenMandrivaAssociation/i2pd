@@ -1,11 +1,9 @@
-%define i2pduser _i2pd
 %define debug_package %nil
-%define _i2pd_root /run/%name
 
 Name:		i2pd
 Summary:	Full C++ implementation of I2P router
 Version:	2.11.0
-Release:	1
+Release:	2
 License:	BSD-3-Clause
 Group:		System/Servers
 Url:		https://github.com/PurpleI2P/i2pd
@@ -50,6 +48,7 @@ install -pDm 644 contrib/rpm/i2pd.service %buildroot%_unitdir/%name.service
 rm -rf %{buildroot}/usr/src
 rm -f %{buildroot}/usr/lib/libi2pd.a %{buildroot}/usr/LICENSE
 sed -i "s!PIDFile=/var/lib/i2pd/i2pd.pid!PIDFile=/run/i2pd/i2pd.pid!g" %{buildroot}%{_unitdir}/%{name}.service
+mkdir -p %{buildroot}/%{_localstatedir}/lib/%{name}
 
 %pre
 %_pre_useradd %{name} /run/%{name} /sbin/nologin
@@ -65,4 +64,5 @@ sed -i "s!PIDFile=/var/lib/i2pd/i2pd.pid!PIDFile=/run/i2pd/i2pd.pid!g" %{buildro
 %files
 %doc LICENSE README.md docs/configuration.md
 %_bindir/%name
+%attr(0700,%{name},%{name}) %dir %{_localstatedir}/lib/%{name}
 %_unitdir/%name.service
