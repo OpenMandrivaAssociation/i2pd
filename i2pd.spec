@@ -11,10 +11,6 @@ Group:		System/Servers
 Url:		https://github.com/PurpleI2P/i2pd
 
 Source0:	https://github.com/PurpleI2P/i2pd/archive/%{version}.tar.gz
-Source2:	%name.logrotate
-Source3:	i2p.conf
-Source4:	tunnels.conf
-
 Requires(pre):	rpm-helper
 
 BuildRequires:	miniupnpc-devel
