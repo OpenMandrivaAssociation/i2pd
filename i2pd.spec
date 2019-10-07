@@ -30,7 +30,6 @@ C++ implementation of I2P.
 
 
 %build
-cd build
 %cmake \
     -DWITH_LIBRARY=OFF \
     -DWITH_UPNP=ON \
@@ -39,11 +38,11 @@ cd build
     -DWITH_HARDENING=ON \
     -DBUILD_SHARED_LIBS:BOOL=OFF
 
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-cd build
+pushd build
 chrpath -d i2pd
 install -D -m 755 i2pd %{buildroot}%{_sbindir}/i2pd
 install -D -m 755 %{_builddir}/%{name}-%{version}/contrib/i2pd.conf %{buildroot}%{_sysconfdir}/i2pd/i2pd.conf
@@ -57,7 +56,7 @@ install -d -m 700 %{buildroot}%{_sharedstatedir}/i2pd
 install -d -m 700 %{buildroot}%{_localstatedir}/log/i2pd
 ln -s %{_datadir}/%{name}/certificates %{buildroot}%{_sharedstatedir}/i2pd/certificates
 ln -s %{_datadir}/i2pd/tunnels.conf.d %{buildroot}%{_sysconfdir}/i2pd/tunnels.conf.d
-
+popd
 
 %pre
 getent group i2pd >/dev/null || %{_sbindir}/groupadd -r i2pd
