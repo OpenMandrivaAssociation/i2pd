@@ -83,7 +83,7 @@ getent passwd i2pd >/dev/null || \
 %{_datadir}/i2pd/certificates
 %config(noreplace) %{_sysconfdir}/i2pd/*
 %config(noreplace) %{_sysconfdir}/i2pd/tunnels.conf.d/*
-/%{_unitdir}/i2pd.service
+%{_unitdir}/i2pd.service
 %dir %attr(0700,i2pd,i2pd) %{_localstatedir}/log/i2pd
 %dir %attr(0700,i2pd,i2pd) %{_sharedstatedir}/i2pd
 %{_sharedstatedir}/i2pd/certificates
