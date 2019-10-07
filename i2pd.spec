@@ -26,10 +26,11 @@ Requires(pre):  %{_sbindir}/useradd %{_sbindir}/groupadd
 C++ implementation of I2P.
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
+pushd build
 %cmake \
     -DWITH_LIBRARY=OFF \
     -DWITH_UPNP=ON \
@@ -39,10 +40,10 @@ C++ implementation of I2P.
     -DBUILD_SHARED_LIBS:BOOL=OFF
 
 %make_build
-
+popd
 
 %install
-pushd build
+pushd build/build
 chrpath -d i2pd
 install -D -m 755 i2pd %{buildroot}%{_sbindir}/i2pd
 install -D -m 755 %{_builddir}/%{name}-%{version}/contrib/i2pd.conf %{buildroot}%{_sysconfdir}/i2pd/i2pd.conf
