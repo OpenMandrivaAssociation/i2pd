@@ -3,10 +3,13 @@ Version:        2.28.0
 Release:        1
 Summary:        I2P router written in C++
 Group:          System/Servers
+
 License:        BSD
-Url:            https://github.com/PurpleI2P/i2pd
-Source0:        https://github.com/PurpleI2P/i2pd/archive/%{version}.tar.gz
+URL:            https://github.com/PurpleI2P/i2pd
+Source0:        https://github.com/PurpleI2P/i2pd/archive/%{version}/%name-%version.tar.gz
+
 BuildRequires:  cmake
+BuildRequires:  glibc-devel
 BuildRequires:  chrpath
 BuildRequires:  gcc-c++
 BuildRequires:  zlib-devel
@@ -31,8 +34,9 @@ cd build
 %cmake \
     -DWITH_LIBRARY=OFF \
     -DWITH_UPNP=ON \
+    -DWITH_AESNI=OFF \
+    -DWITH_AVX=OFF \
     -DWITH_HARDENING=ON \
-
     -DBUILD_SHARED_LIBS:BOOL=OFF
 
 make %{?_smp_mflags}
