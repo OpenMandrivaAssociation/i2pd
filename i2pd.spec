@@ -1,5 +1,5 @@
 Name:           i2pd
-Version:        2.28.0
+Version:        2.30.0
 Release:        1
 Summary:        I2P router written in C++
 Group:          System/Servers
@@ -91,5 +91,8 @@ getent passwd i2pd >/dev/null || \
 
 
 %changelog
+* Tue Feb 25 2020 r4sas <r4sas@i2pmail.org> - 2.30.0
+- update to 2.30.0
+
 * Tue Aug 27 2019 r4sas <r4sas@i2pmail.org> - 2.28.0
 - update to 2.28.0
