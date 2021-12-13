@@ -14,7 +14,7 @@ BuildRequires:  chrpath
 BuildRequires:  gcc-c++
 BuildRequires:  zlib-devel
 BuildRequires:  boost-devel
-BuildRequires:  openssl-devel
+BuildRequires:  pkgconfig(openssl)
 BuildRequires:  miniupnpc-devel
 BuildRequires:  systemd-units
 BuildRequires:  rpm-helper
