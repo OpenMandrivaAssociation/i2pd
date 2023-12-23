@@ -1,6 +1,6 @@
 Name:           i2pd
 Version:        2.28.0
-Release:        3
+Release:        4
 Summary:        I2P router written in C++
 Group:          System/Servers
 
