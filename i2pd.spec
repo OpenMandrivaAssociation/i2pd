@@ -52,7 +52,9 @@ EOF
 %files
 %{_bindir}/i2pd
 %{_datadir}/i2pd/certificates
-%config(noreplace) %{_sysconfdir}/i2pd/*
+%dir %{_sysconfdir}/i2pd
+%config(noreplace) %{_sysconfdir}/i2pd/*.conf
+%dir %{_sysconfdir}/i2pd/tunnels.conf.d
 %config(noreplace) %{_sysconfdir}/i2pd/tunnels.conf.d/*
 %{_unitdir}/i2pd.service
 %dir %attr(0700,i2pd,i2pd) %{_localstatedir}/log/i2pd
