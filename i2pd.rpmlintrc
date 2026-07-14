@@ -1,4 +1,4 @@
-# The server uses "i2pd" ad uid and gid
+# The server uses "i2pd" as uid and gid
 addFilter("W: non-standard-uid")
 addFilter("W: non-standard-gid")
 addFilter("E: non-standard-dir-perm")
