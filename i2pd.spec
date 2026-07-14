@@ -7,6 +7,7 @@ Group: System/Servers
 Url: https://github.com/PurpleI2P/i2pd
 Source0: https://github.com/PurpleI2P/i2pd/archive/%{version}/%{name}-%{version}.tar.gz
 Source100: i2pd.rpmlintrc
+Patch0:	i2pd-2.60.0-fix-build-against-openssl4.patch
 BuildRequires: chrpath
 BuildRequires: cmake >= 3.22
 BuildRequires: make
