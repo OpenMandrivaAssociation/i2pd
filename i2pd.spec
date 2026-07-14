@@ -16,13 +16,13 @@ BuildRequires: miniupnpc-devel
 BuildRequires: pkgconfig(openssl)
 BuildRequires: pkgconfig(zlib)
 
+%if 0
 BuildSystem:	cmake
 BuildOption:	-DWITH_LIBRARY=OFF
 BuildOption:	-DWITH_UPNP=ON
 BuildOption:	-DWITH_HARDENING=ON
 BuildOption:	-DBUILD_SHARED_LIBS:BOOL=OFF
-#BuildOption:	-DWITH_AESNI=OFF
-#BuildOption:	-DWITH_AVX=OFF
+%endif
 
 %description
 C++ implementation of I2P.
@@ -46,7 +46,19 @@ C++ implementation of I2P.
 %autosetup -p1 -n %{name}-%{version}/build
 
 
-%install -a
+%build
+%cmake \
+				-DWITH_LIBRARY=OFF \
+				-DWITH_UPNP=ON \
+				-DWITH_HARDENING=ON \
+				-DBUILD_SHARED_LIBS=OFF
+
+%make_build
+
+
+%install 
+%make_install -C build
+#-a
 #chrpath -d %%{buildroot}%%{_bindir}/%%{name}
 install -D -m 755 ../contrib/%{name}.conf %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 install -D -m 755 ../contrib/tunnels.conf %{buildroot}%{_sysconfdir}/%{name}/tunnels.conf
