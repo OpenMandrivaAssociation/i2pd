@@ -31,47 +31,53 @@ C++ implementation of I2P.
 %files
 %{_bindir}/%{name}
 %dir %{_sysconfdir}/%{name}
-%config(noreplace) %{_sysconfdir}/%{name}/*.conf
 %dir %{_sysconfdir}/%{name}/tunnels.conf.d
+%dir %attr(0700,i2pd,i2pd) %{_localstatedir}/log/%{name}
+%dir %attr(0700,i2pd,i2pd) %{_sharedstatedir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/*.conf
 %config(noreplace) %{_sysconfdir}/i2pd/tunnels.conf.d/*
 %{_datadir}/%{name}/certificates
 %{_unitdir}/%{name}.service
 %{_sysusersdir}/*.conf
-%dir %attr(0700,i2pd,i2pd) %{_localstatedir}/log/%{name}
-%dir %attr(0700,i2pd,i2pd) %{_sharedstatedir}/%{name}
 %{_sharedstatedir}/%{name}/certificates
 
 #-----------------------------------------------------------------------------
 
 %prep
-%autosetup -p1 -n %{name}-%{version}/build
+%autosetup -p1
 
 
 %build
-%cmake \
+pushd build
+	%cmake \
 				-DWITH_LIBRARY=OFF \
 				-DWITH_UPNP=ON \
 				-DWITH_HARDENING=ON \
 				-DBUILD_SHARED_LIBS=OFF
 
-%make_build
+	%make_build
+popd
 
 
-%install 
-%make_install -C build
+%install
+pushd build
+	%make_install -C build
 #-a
+
 #chrpath -d %%{buildroot}%%{_bindir}/%%{name}
-install -D -m 755 ../contrib/%{name}.conf %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
-install -D -m 755 ../contrib/tunnels.conf %{buildroot}%{_sysconfdir}/%{name}/tunnels.conf
-install -d -m 755 %{buildroot}%{_datadir}/%{name}
-install -d -m 755 %{buildroot}%{_datadir}/%{name}/tunnels.conf.d
-%{__cp} -r ../contrib/certificates/ %{buildroot}%{_datadir}/%{name}/certificates
-%{__cp} -r ../contrib/tunnels.d/ %{buildroot}%{_sysconfdir}/%{name}/tunnels.conf.d
-install -D -m 644 ../contrib/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
-install -d -m 700 %{buildroot}%{_sharedstatedir}/%{name}
-install -d -m 700 %{buildroot}%{_localstatedir}/log/%{name}
-ln -s %{_datadir}/%{name}/certificates %{buildroot}%{_sharedstatedir}/%{name}/certificates
-ln -s %{_datadir}/%{name}/tunnels.conf.d %{buildroot}%{_sysconfdir}/%{name}/tunnels.conf.d
+	install -D -m 755 ../contrib/%{name}.conf %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
+	install -D -m 755 ../contrib/tunnels.conf %{buildroot}%{_sysconfdir}/%{name}/tunnels.conf
+	install -d -m 755 %{buildroot}%{_datadir}/%{name}
+	install -d -m 755 %{buildroot}%{_datadir}/%{name}/tunnels.conf.d
+	%{__cp} -r ../contrib/certificates/ %{buildroot}%{_datadir}/%{name}/certificates
+	%{__cp} -r ../contrib/tunnels.d/ %{buildroot}%{_sysconfdir}/%{name}/tunnels.conf.d
+
+	install -D -m 644 ../contrib/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
+	install -d -m 700 %{buildroot}%{_sharedstatedir}/%{name}
+	install -d -m 700 %{buildroot}%{_localstatedir}/log/%{name}
+	ln -s %{_datadir}/%{name}/certificates %{buildroot}%{_sharedstatedir}/%{name}/certificates
+	ln -s %{_datadir}/%{name}/tunnels.conf.d %{buildroot}%{_sysconfdir}/%{name}/tunnels.conf.d
+popd
 
 mkdir -p %{buildroot}%{_sysusersdir}
 cat >%{buildroot}%{_sysusersdir}/%{name}.conf <<EOF
