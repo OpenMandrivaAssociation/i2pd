@@ -1,13 +1,13 @@
 Summary: I2P router written in C++
 Name: i2pd
-Version: 2.60.0
+Version: 2.61.0
 Release: 1
 License: BSD
 Group: System/Servers
 Url: https://github.com/PurpleI2P/i2pd
 Source0: https://github.com/PurpleI2P/i2pd/archive/%{version}/%{name}-%{version}.tar.gz
 Source100: i2pd.rpmlintrc
-Patch0:	i2pd-2.60.0-fix-build-against-openssl4.patch
+# dropped (no longer applies): Patch0:	i2pd-2.61.0-fix-build-against-openssl4.patch
 BuildRequires: chrpath
 BuildRequires: cmake >= 3.22
 BuildRequires: make
