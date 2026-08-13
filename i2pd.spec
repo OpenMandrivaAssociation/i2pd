@@ -1,7 +1,7 @@
 Summary: I2P router written in C++
 Name: i2pd
 Version: 2.61.0
-Release: 1
+Release: 2
 License: BSD
 Group: System/Servers
 Url: https://github.com/PurpleI2P/i2pd
